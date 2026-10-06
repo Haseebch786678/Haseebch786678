@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eternal Movies</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#080808;
+  color:white;
+}
+
+header{
+  background:#111;
+  padding:18px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:10;
+  border-bottom:1px solid #222;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+.logo span{
+  color:#e50914;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+  font-size:15px;
+}
+
+.hero{
+  min-height:430px;
+  padding:90px 7%;
+  display:flex;
+  align-items:center;
+  background:
+  linear-gradient(90deg,#080808 25%,rgba(8,8,8,.75),rgba(8,8,8,.2)),
+  linear-gradient(180deg,transparent,#080808),
+  url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1600&q=80");
+  background-size:cover;
+  background-position:center;
+}
+
+.hero-content{
+  max-width:600px;
+}
+
+.hero h1{
+  font-size:55px;
+  margin-bottom:15px;
+}
+
+.hero p{
+  color:#ccc;
+  line-height:1.7;
+  margin-bottom:25px;
+}
+
+.btn{
+  display:inline-block;
+  background:#e50914;
+  color:white;
+  padding:13px 25px;
+  border-radius:5px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.search-area{
+  padding:30px 6%;
+  text-align:center;
+}
+
+.search{
+  width:90%;
+  max-width:600px;
+  padding:15px 20px;
+  border:none;
+  border-radius:30px;
+  background:#1b1b1b;
+  color:white;
+  outline:none;
+  font-size:16px;
+}
+
+section{
+  padding:15px 6% 40px;
+}
+
+section h2{
+  margin-bottom:20px;
+  font-size:25px;
+}
+
+.categories{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:30px;
+}
+
+.category{
+  background:#1c1c1c;
+  padding:10px 18px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.category:hover{
+  background:#e50914;
+}
+
+.movies{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:22px;
+}
+
+.movie{
+  background:#151515;
+  border-radius:8px;
+  overflow:hidden;
+  transition:.3s;
+}
+
+.movie:hover{
+  transform:translateY(-6px);
+}
+
+.movie img{
+  width:100%;
+  height:250px;
+  object-fit:cover;
+}
+
+.movie-info{
+  padding:14px;
+}
+
+.movie-info h3{
+  margin-bottom:7px;
+}
+
+.movie-info p{
+  color:#999;
+  font-size:13px;
+}
+
+.watch{
+  display:inline-block;
+  margin-top:12px;
+  color:#e50914;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+footer{
+  background:#111;
+  text-align:center;
+  padding:30px;
+  color:#888;
+  margin-top:30px;
+}
+
+@media(max-width:600px){
+  nav a{
+    margin-left:8px;
+    font-size:12px;
+  }
+
+  .logo{
+    font-size:22px;
+  }
+
+  .hero{
+    min-height:380px;
+    padding:60px 6%;
+  }
+
+  .hero h1{
+    font-size:40px;
+  }
+
+  .movies{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .movie img{
+    height:220px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">E<span>TERNAL</span></div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#movies">Movies</a>
+    <a href="#categories">Categories</a>
+  </nav>
+</header>
+
+<div class="hero" id="home">
+  <div class="hero-content">
+    <h1>Eternal</h1>
+    <p>
+      Enter a world where imagination becomes reality.
+      Discover cinematic stories, original movies, trailers
+      and unforgettable adventures.
+    </p>
+    <a href="#movies" class="btn">Explore Movies</a>
+  </div>
+</div>
+
+<div class="search-area">
+  <input
+    type="text"
+    id="search"
+    class="search"
+    placeholder="Search movies..."
+    onkeyup="searchMovies()">
+</div>
+
+<section id="categories">
+  <h2>Categories</h2>
+
+  <div class="categories">
+    <div class="category" onclick="filterMovies('all')">All</div>
+    <div class="category" onclick="filterMovies('action')">Action</div>
+    <div class="category" onclick="filterMovies('horror')">Horror</div>
+    <div class="category" onclick="filterMovies('scifi')">Sci-Fi</div>
+    <div class="category" onclick="filterMovies('drama')">Drama</div>
+  </div>
+</section>
+
+<section id="movies">
+  <h2>Featured Movies</h2>
+
+  <div class="movies" id="movieList">
+
+    <div class="movie" data-category="action" data-title="The Last Shelter">
+      <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80">
+      <div class="movie-info">
+        <h3>The Last Shelter</h3>
+        <p>Action • Sci-Fi</p>
+        <a href="#" class="watch">View Movie →</a>
+      </div>
+    </div>
+
+    <div class="movie" data-category="horror" data-title="The Dark Forest">
+      <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=600&q=80">
+      <div class="movie-info">
+        <h3>The Dark Forest</h3>
+        <p>Horror • Mystery</p>
+        <a href="#" class="watch">View Movie →</a>
+      </div>
+    </div>
+
+    <div class="movie" data-category="scifi" data-title="Beyond Tomorrow">
+      <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=600&q=80">
+      <div class="movie-info">
+        <h3>Beyond Tomorrow</h3>
+        <p>Sci-Fi • Adventure</p>
+        <a href="#" class="watch">View Movie →</a>
+      </div>
+    </div>
+
+    <div class="movie" data-category="drama" data-title="Broken Dreams">
+      <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80">
+      <div class="movie-info">
+        <h3>Broken Dreams</h3>
+        <p>Drama • Mystery</p>
+        <a href="#" class="watch">View Movie →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Eternal Movies. All Rights Reserved.</p>
+  <p>Where Your Imagination Enters the World of Movies.</p>
+</footer>
+
+<script>
+function searchMovies(){
+  let input=document.getElementById("search").value.toLowerCase();
+  let movies=document.querySelectorAll(".movie");
+
+  movies.forEach(movie=>{
+    let title=movie.getAttribute("data-title").toLowerCase();
+
+    if(title.includes(input)){
+      movie.style.display="";
+    }else{
+      movie.style.display="none";
+    }
+  });
+}
+
+function filterMovies(category){
+  let movies=document.querySelectorAll(".movie");
+
+  movies.forEach(movie=>{
+    if(category==="all" ||
+       movie.getAttribute("data-category")===category){
+      movie.style.display="";
+    }else{
+      movie.style.display="none";
+    }
+  });
+}
+</script>
+
+</body>
+        </html>
